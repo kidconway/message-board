@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <h1>The Dojo Message Board</h1>
+      </div>
+      <div id="new-message">
+        <form class="form-style-1" action="/add-message" method="post">
+          <label for="Name">Name: </label>
+            <input class="name" type="text" name="author" placeholder='Please enter your name'>
+          <label for="Message">Message:</label>
+            <textarea name="contents" rows="8" cols="80"></textarea>
+          <input class="new-msg-button" type="submit" name="submit" value="Post Message">
+        </form>
+      </div>
+      <div class="all-message">
+        <% for (x in messages) { %>
+          <ul>
+            <li><label for="author">Name: <%= messages[x].author %></label></li>
+            <li><label for="contents">Message: <%= messages[x].contents %></label></li>
+<!--             <li>
+  <form action="/destroy/<%= messages[x]._id %>" method="post">
+    <label for="Delete"><input type="submit" name="delete" value="Delete"></label>
+  </form>
+</li> -->
+          <li>
+            <% for (i in x.comments) { %>
+            <ul>
+              <li><label for="commenter">Name: <%= messages[x].comments[i].commenter %></label></li>
+              <li><label for="commenter">Comment: <%= messages[x].comments[i].comment %></label></li>
+            </ul>
+            <% } %>
+          </li>
+          <li><ul>
+            <form class="form-style-1" action="/add-comment" method="post">
+              <label for="commenter">Name: </label>
+                <input class="name" type="text" name="commenter" placeholder='Please enter your name'>
+              <label for="comment">Message:</label>
+                <textarea name="comment" rows="8" cols="80"></textarea>
+              <input class="new-comment-button" type="submit" name="submit" value="Post Comment">
+            </form>
+          </ul></li>
+          </ul>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>
